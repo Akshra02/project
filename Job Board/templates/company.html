@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Dashboard</title>
+  <style>
+    body { font-family: Arial; background:#f9f9f9; margin:0; padding:0; }
+    .container { width:90%; max-width:900px; margin:40px auto; background:white; padding:20px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
+    h2 { text-align:center; color:#333; }
+    a.btn { text-decoration:none; padding:8px 15px; background:#4CAF50; color:white; border-radius:5px; margin-right:10px; }
+    a.btn:hover { background:#45a049; }
+    .job { border-bottom:1px solid #ddd; padding:15px 0; }
+    .job:last-child { border-bottom:none; }
+    .job h4 { margin:0; color:#333; }
+    .status { font-weight:bold; color:#4CAF50; }
+    .rejected { color:#f44336; }
+    .pending { color:#ff9800; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome {{ name }} (Company)</h2>
+
+    <p>
+      <a href="{{ url_for('post_job') }}" class="btn">+ Post New Job</a>
+      <a href="{{ url_for('logout') }}" class="btn" style="background:#f44336;">Logout</a>
+    </p>
+
+    <h3>Your Jobs</h3>
+    {% if jobs %}
+      {% for job in jobs %}
+        <div class="job">
+          <h4>{{ job.title }} ({{ job.company }})</h4>
+          <p>{{ job.description }}</p>
+          <p><strong>Salary:</strong> {{ job.salary }}</p>
+          <p><strong>Work Mode:</strong> {{ job.work_mode }}</p>
+          <p>Status: 
+            <span class="status {% if job.status == 'pending' %}pending{% elif job.status == 'rejected' %}rejected{% endif %}">
+              {{ job.status }}
+            </span>
+          </p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No jobs posted yet.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

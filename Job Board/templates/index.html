@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JobBoard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav a {
+            margin-left: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-login {
+            background-color: white;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+        }
+
+        .btn-login:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-register {
+            background-color: #4CAF50;
+            color: white;
+            border: 2px solid #4CAF50;
+        }
+
+        .btn-register:hover {
+            background-color: white;
+            color: #4CAF50;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(to right, #e6f4ea, #ffffff);
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            color: #2E7D32;
+            margin-bottom: 20px;
+        }
+
+        .hero form input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        .hero form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .hero form button:hover {
+            background-color: #1B5E20;
+        }
+
+        /* Job Cards */
+        .jobs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .job-card {
+            background-color: #ffffff;
+            border-left: 5px solid #4CAF50;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .job-card h3 {
+            margin-top: 0;
+            color: #2E7D32;
+            font-size: 22px;
+        }
+
+        .job-card p strong {
+            color: #388E3C;
+        }
+
+        .job-card button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .job-card button:hover {
+            background-color: #1B5E20;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">JobBoard</div>
+        <nav>
+            <a href="{{ url_for('login') }}" class="btn-login">Login</a>
+            <a href="{{ url_for('register') }}" class="btn-register">Register</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Find Your Dream Job</h1>
+        <form method="GET" action="{{ url_for('index') }}">
+            <input type="text" name="search" placeholder="Job title or keyword">
+            <input type="text" name="location" placeholder="Location">
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+    <!-- Job Listings -->
+    <section class="jobs">
+        {% for job in jobs %}
+        <div class="job-card">
+            <h3>{{ job.title }}</h3>
+            <p><strong>Company:</strong> {{ job.company }}</p>
+            <p><strong>Description:</strong> {{ job.description }}</p>
+            <p><strong>Salary:</strong> {{ job.salary }}</p>
+            <p><strong>Work Mode:</strong> {{ job.work_mode }}</p>
+            <a href="{{ url_for('apply_job', job_id=job.id) }}">
+    <button type="button" style="
+        background-color:#4CAF50;
+        color:white;
+        border:none;
+        padding:10px 20px;
+        border-radius:5px;
+        font-weight:bold;
+        cursor:pointer;">
+        Apply
+    </button>
+</a>
+
+        </div>
+        {% endfor %}
+    </section>
+
+    
+</body>
+</html>

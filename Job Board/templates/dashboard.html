@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7; /* light grey full page */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        a.logout {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 16px;
+        }
+
+        a.post-job {
+            background-color: white;
+            color: #4CAF50;
+            padding: 10px 20px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a.post-job:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .flash-message {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #e6f4ea; 
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-top: 30px;
+            font-size: 26px;
+        }
+
+        .job-card {
+            background-color: #ffffff;
+            border-left: 5px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .job-card h3 {
+            margin-top: 0;
+            color: #2E7D32;
+            font-size: 22px;
+        }
+
+        .job-card p strong {
+            color: #388E3C;
+        }
+
+        .job-card button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .job-card button:hover {
+            background-color: #1B5E20;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome, {{ name }}!</h1>
+        <div>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+            {% if session.is_admin %}
+            <a href="{{ url_for('post_job') }}" class="post-job">Post a Job</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-message">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <h2>Available Jobs</h2>
+    {% for job in jobs %}
+    <div class="job-card">
+        <h3>{{ job.title }}</h3>
+        <p><strong>Company:</strong> {{ job.company }}</p>
+        <p><strong>Description:</strong> {{ job.description }}</p>
+        <p><strong>Salary:</strong> {{ job.salary }}</p>
+        <p><strong>Work Mode:</strong> {{ job.work_mode }}</p>
+       <a href="{{ url_for('apply_job', job_id=job.id) }}">
+    <button type="button" style="
+        background-color:#4CAF50;
+        color:white;
+        border:none;
+        padding:10px 20px;
+        border-radius:5px;
+        font-weight:bold;
+        cursor:pointer;">
+        Apply
+    </button>
+</a>
+
+    </div>
+    {% endfor %}
+
+</body>
+</html>

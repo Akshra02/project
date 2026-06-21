@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a Job</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            background-color: #f2f2f2; 
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            height:100vh; 
+        }
+        .container { 
+            background:white; 
+            padding:30px 40px; 
+            border-radius:10px; 
+            box-shadow:0 2px 10px rgba(0,0,0,0.2); 
+            width:350px; 
+        }
+        h2 {
+            text-align:center;
+            margin-bottom:20px;
+            color:#333;
+        }
+        input, textarea, select { 
+            width:100%; 
+            padding:10px; 
+            margin:8px 0 15px 0; 
+            border:1px solid #ccc; 
+            border-radius:5px; 
+        }
+        button { 
+            width:100%; 
+            padding:10px; 
+            background:#4CAF50; 
+            color:white; 
+            border:none; 
+            border-radius:5px; 
+            cursor:pointer; 
+            font-size:16px;
+        }
+        button:hover { background:#45a049; }
+        a { 
+            display:block; 
+            text-align:center; 
+            margin-top:15px; 
+            color:#4CAF50; 
+            text-decoration:none; 
+            font-weight:bold;
+        }
+        a:hover {
+            text-decoration:underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Post a Job</h2>
+        <form method="POST">
+            <input type="text" name="title" placeholder="Job Title" required>
+            <textarea name="description" placeholder="Job Description" rows="4" required></textarea>
+            <input type="text" name="company" placeholder="Company Name" required>
+            <input type="text" name="salary" placeholder="Salary" required>
+            <select name="work_mode" required>
+                <option value="">Select Work Mode</option>
+                <option value="remote">Remote</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="onsite">Onsite</option>
+            </select>
+            <button type="submit">Post Job</button>
+        </form>
+        <!-- Updated link -->
+        <a href="{{ url_for('admin_dashboard') }}">⬅ Back to Admin Dashboard</a>
+    </div>
+</body>
+</html>

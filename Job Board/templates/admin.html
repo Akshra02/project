@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .approve-btn {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background-color: #1e874b;
+        }
+
+        .reject-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .logout-btn {
+            background-color: #fff;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+        }
+
+        .logout-btn:hover {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1fdf1;
+        }
+
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <div>
+            <a href="{{ url_for('logout') }}"><button class="logout-btn">LOGOUT</button></a>
+        </div>
+    </header>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Description</th>
+            <th>Salary</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job.title }}</td>
+            <td>{{ job.company }}</td>
+            <td>{{ job.description }}</td>
+            <td>{{ job.salary }}</td>
+            <td>{{ job.status }}</td>
+            <td>
+                {% if job.status == 'pending' %}
+                <form action="{{ url_for('approve_job', job_id=job.id) }}" method="POST">
+                    <button type="submit" class="approve-btn">Approve</button>
+                </form>
+                <form action="{{ url_for('reject_job', job_id=job.id) }}" method="POST">
+                    <button type="submit" class="reject-btn">Reject</button>
+                </form>
+                {% else %}
+                    <b>{{ job.status|capitalize }}</b>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
