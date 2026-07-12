@@ -135,33 +135,6 @@ http://127.0.0.1:5000
 
 ---
 
-## 📸 Screenshots
-
-### Home Page
-
-![Home](screenshots/home.png)
-
-### Login Page
-
-![Login](screenshots/login.png)
-
-### Register Page
-
-![Register](screenshots/register.png)
-
-### User Dashboard
-
-![Dashboard](screenshots/dashboard.png)
-
-### Company Dashboard
-
-![Company](screenshots/company.png)
-
-### Admin Dashboard
-
-![Admin](screenshots/admin.png)
-
----
 
 ## 📋 Application Workflow
 
